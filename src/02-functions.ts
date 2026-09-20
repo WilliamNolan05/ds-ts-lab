@@ -30,9 +30,12 @@ function addColleague(cs: Colleague[], n: string, dept: string, eml: string) {
 function sortColleagues(
   colleagues: Colleague[],
   sorter: (c1: Colleague, c2: Colleague) => number,
-  max: number,
+  max?: number,
 ): EmailContact[] {
-  const end = max < 2 ? 1 : max;
+  let end = colleagues.length;
+  if (max !== undefined) {
+    end = max < 2 ? 1 : max;
+  }
   const sorted = colleagues.sort(sorter); // Colleague[] inferred
   const fullResult = sorted.map((ce) => ({
     name: ce.name,
@@ -49,6 +52,16 @@ function findFriends(
   const found = friends.filter(criterion);
   return found;
 }
+
+function addInterest(f: Friend, interest: string): string[] {
+  if (f.interests !== undefined) {
+    f.interests.push(interest);
+  } else {
+    f.interests = [interest];
+  }
+  return f.interests;
+}
+
 console.log(
   sortColleagues(
     colleagues.current,
@@ -65,6 +78,10 @@ console.log(
   ),
 );
 
+console.log(
+  sortColleagues(colleagues.current, (a, b) => a.name.length - b.name.length),
+);
+
 addColleague(colleagues.current, "Sheild O Connell", "HR", "soc@here.com");
 console.log(colleagues.current.filter((c) => c.name === "Sheild O Connell"));
 
@@ -74,3 +91,5 @@ console.log(older(friends[0]));
 
 console.log(findFriends(friends, (friend) => friend.name.startsWith("Pa")));
 console.log(findFriends(friends, (friend) => friend.age < 35));
+
+console.log(addInterest(friends[0], "Politics"));
