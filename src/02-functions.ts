@@ -29,15 +29,16 @@ function addColleague(cs: Colleague[], n: string, dept: string, eml: string) {
 
 function sortColleagues(
   colleagues: Colleague[],
-
   sorter: (c1: Colleague, c2: Colleague) => number,
+  max: number,
 ): EmailContact[] {
+  const end = max < 2 ? 1 : max;
   const sorted = colleagues.sort(sorter); // Colleague[] inferred
-  const result: EmailContact[] = sorted.map((ce) => ({
+  const fullResult = sorted.map((ce) => ({
     name: ce.name,
     email: ce.contact.email,
   }));
-  return result;
+  return fullResult.slice(0, end);
 }
 
 function findFriends(
@@ -48,15 +49,20 @@ function findFriends(
   const found = friends.filter(criterion);
   return found;
 }
-
 console.log(
   sortColleagues(
     colleagues.current,
     (a, b) => a.contact.extension - b.contact.extension,
+    3,
   ),
 );
+
 console.log(
-  sortColleagues(colleagues.current, (a, b) => a.name.length - b.name.length),
+  sortColleagues(
+    colleagues.current,
+    (a, b) => a.name.length - b.name.length,
+    1,
+  ),
 );
 
 addColleague(colleagues.current, "Sheild O Connell", "HR", "soc@here.com");

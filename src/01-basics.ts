@@ -1,15 +1,17 @@
-import {Friend, Colleague, ColleagueHistory } from './myTypes'
+import { Friend, Colleague, ColleagueHistory } from "./myTypes";
 
 const friend1 = {
   name: "Paul Fleming",
   phone: "087-12345",
   age: 25,
+  dob: new Date("1998-11-20"),
 };
 
 const friend2 = {
   name: "Jane Costello",
   phone: "086--12345",
   age: 31,
+  interests: ["Music", "Sport"],
 };
 
 //   -------------------
@@ -40,7 +42,7 @@ const colleague3 = {
   },
 };
 
-export const colleagues : ColleagueHistory = {
+export const colleagues: ColleagueHistory = {
   current: [colleague1, colleague2, colleague3],
   former: [],
 };
